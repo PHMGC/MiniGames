@@ -1,54 +1,58 @@
-# Project name
-PRJ = minigames
-
 # Directories
 SRC_DIR = src
 BUILD_DIR = build
+BIN_DIR = bin
+INCLUDE_DIR = include
 EXTERNALS_DIR = externals
 
-# Target
-TARGET = $(BUILD_DIR)/$(PRJ)
+# SFML local files only for Windows 
+ifeq ($(OS),Windows_NT)
+    SFML_DIR = $(EXTERNALS_DIR)/SFML-2.6.2
+    CXXFLAGS += -I$(INCLUDE_DIR) -I$(SFML_DIR)/include
+    LDFLAGS += -L$(SFML_DIR)/lib -lsfml-graphics -lsfml-window -lsfml-system
+    COPY_DLLS = @mkdir -p $(BIN_DIR) && cp $(SFML_DIR)/bin/*.dll $(BIN_DIR)/
+else
+# Checking if SFML is installed on system
+    SFML_CHECK := $(shell pkg-config --exists sfml-graphics sfml-window sfml-system || echo "missing")
+    ifeq ($(SFML_CHECK),missing)
+        $(error SFML is not installed in your system. Please install SFML before continuing.)
+    endif
+    CXXFLAGS += -I$(INCLUDE_DIR)
+    LDFLAGS += -lsfml-graphics -lsfml-window -lsfml-system
+    COPY_DLLS = @ # No need, cause
+endif
 
-# SFML
-SFML_DIR = $(EXTERNALS_DIR)/SFML-2.6.2
-
-# Source files
-SRCS = $(wildcard $(SRC_DIR)/*.cpp)
-
-# Objects
-OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))
+# Source and object files
+TARGET = $(BIN_DIR)/main
+SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
+OBJECTS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SOURCES))
 
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -Wall -Wextra -std=c++17 -I$(SFML_DIR)/include
-LDFLAGS = -L$(SFML_DIR)/lib -lsfml-graphics -lsfml-window -lsfml-system
+CXXFLAGS += -std=c++17 -Wall -Wextra
 
 # Primary build
-all: $(TARGET) sfml_dlls
+all: $(TARGET) copy_dlls
 
-# Rule to create the executable
-$(TARGET): $(OBJS)
-	@mkdir -p $(BUILD_DIR)
-	@$(CXX) $(CXXFLAGS) -o $@ $(OBJS) $(LDFLAGS)
+$(TARGET): $(OBJECTS)
+	@mkdir -p $(BIN_DIR)
+	@$(CXX) $(OBJECTS) -o $(TARGET) $(LDFLAGS)
 
-# Rule to build object files
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(BUILD_DIR)
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Copy SFML DLLs
-sfml_dlls:
-	@mkdir -p $(BUILD_DIR)
-	@cp $(SFML_DIR)/bin/*.dll $(BUILD_DIR)/
+# SFML dependencies
+copy_dlls:
+	$(COPY_DLLS)
+
+# Cleanup build
+clean:
+	@rm -rf $(BUILD_DIR) $(BIN_DIR)
 
 # Start application
-start: all
+run: all
 	@$(TARGET)
 
-# Cleanup the build dir
-clean:
-	@rm -rf $(BUILD_DIR)
-
-
 # Phony targets
-.PHONY: clean sfml_dlls start
+.PHONY: all clean run copy_dlls

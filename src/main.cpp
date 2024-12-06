@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 
 int main() {
-    // Código teste do SFML
+    //Código teste do SFML
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Test");
 
     sf::CircleShape shape(50);
