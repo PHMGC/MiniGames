@@ -1,25 +1,31 @@
-# Directories
+# Diretórios
 SRC_DIR = src
 BUILD_DIR = build
 BIN_DIR = bin
 INCLUDE_DIR = include
 
-# Compiler and flags
+# Compilador e flags
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -I$(INCLUDE_DIR)
-LDFLAGS = -L./lib -lsfml-graphics -lsfml-window -lsfml-system
+CXXFLAGS = -std=c++17 -Wall -Wextra -I$(INCLUDE_DIR) -DSFML_STATIC
+LDFLAGS = -L./lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s \
+					-lopengl32 -lgdi32 -lwinmm -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -lkernel32 -luser32 -lstdc++fs
+UNAME := $(shell uname)
 
-# Target file
+# ifeq ($(UNAME), Linux)
+#     LDFLAGS += -lGL -lfreetype -lflac -lvorbisenc -lvorbisfile -lvorbis -logg
+# else ifeq ($(UNAME), Windows)
+#     LDFLAGS += -lopengl32 -lgdi32 -lwinmm -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -lkernel32 -luser32 -lstdc++fs
+# endif
+
+# Arquivo alvo
 TARGET = $(BIN_DIR)/main
 
-# Source and object files
+# Fontes e objetos
 SUBDIRS := $(wildcard $(SRC_DIR)/*)
 SOURCES := $(wildcard $(SRC_DIR)/*.cpp) $(foreach dir, $(SUBDIRS), $(wildcard $(dir)/*.cpp))
+OBJECTS := $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SOURCES))
 
-# Map source files to object files
-OBJECTS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SOURCES))
-
-# Primary build
+# Construção principal
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
@@ -30,13 +36,13 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Cleanup build
+# Limpar
 clean:
 	rm -rf $(BUILD_DIR) $(BIN_DIR)
 
-# Start application
+# Executar
 run: all
 	$(TARGET)
 
-# Phony targets
+# Phony
 .PHONY: all clean run
