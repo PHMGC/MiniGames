@@ -1,5 +1,4 @@
 build
 bin
-*.zip
 .cache
-*.json
+compile_commands.json
