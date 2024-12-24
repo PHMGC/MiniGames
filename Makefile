@@ -7,15 +7,16 @@ INCLUDE_DIR = include
 # Compilador e flags
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -I$(INCLUDE_DIR) -DSFML_STATIC
-LDFLAGS = -L./lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s \
-					-lopengl32 -lgdi32 -lwinmm -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -lkernel32 -luser32 -lstdc++fs
-UNAME := $(shell uname)
+LDFLAGS = -L./lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s
 
-# ifeq ($(UNAME), Linux)
-#     LDFLAGS += -lGL -lfreetype -lflac -lvorbisenc -lvorbisfile -lvorbis -logg
-# else ifeq ($(UNAME), Windows)
-#     LDFLAGS += -lopengl32 -lgdi32 -lwinmm -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -lkernel32 -luser32 -lstdc++fs
-# endif
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S), Linux)
+    LDFLAGS += -lGL -lfreetype -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -lpthread
+else ifeq ($(OS),Windows_NT)
+    LDFLAGS += -lfreetype -lopengl32 -lgdi32 -lwinmm -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -lkernel32 -luser32
+endif
+
 
 # Arquivo alvo
 TARGET = $(BIN_DIR)/main
