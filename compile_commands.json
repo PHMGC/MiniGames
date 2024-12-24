@@ -1,66 +1,62 @@
 [
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-std=c++17",
-      "-Wall",
-      "-Wextra",
-      "-Iinclude",
-      "-c",
-      "-o",
-      "build/main.o",
-      "src/main.cpp"
-    ],
-    "directory": "D:/Desktop/UFMG/SI/2024-2/pds2/MiniGames",
-    "file": "D:/Desktop/UFMG/SI/2024-2/pds2/MiniGames/src/main.cpp",
-    "output": "D:/Desktop/UFMG/SI/2024-2/pds2/MiniGames/build/main.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-std=c++17",
-      "-Wall",
-      "-Wextra",
-      "-Iinclude",
-      "-c",
-      "-o",
-      "build/Chess/Game.o",
-      "src/Chess/Game.cpp"
-    ],
-    "directory": "D:/Desktop/UFMG/SI/2024-2/pds2/MiniGames",
-    "file": "D:/Desktop/UFMG/SI/2024-2/pds2/MiniGames/src/Chess/Game.cpp",
-    "output": "D:/Desktop/UFMG/SI/2024-2/pds2/MiniGames/build/Chess/Game.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-std=c++17",
-      "-Wall",
-      "-Wextra",
-      "-Iinclude",
-      "-c",
-      "-o",
-      "build/Chess/Instance.o",
-      "src/Chess/Instance.cpp"
-    ],
-    "directory": "D:/Desktop/UFMG/SI/2024-2/pds2/MiniGames",
-    "file": "D:/Desktop/UFMG/SI/2024-2/pds2/MiniGames/src/Chess/Instance.cpp",
-    "output": "D:/Desktop/UFMG/SI/2024-2/pds2/MiniGames/build/Chess/Instance.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-std=c++17",
-      "-Wall",
-      "-Wextra",
-      "-Iinclude",
-      "-c",
-      "-o",
-      "build/Chess/Piece.o",
-      "src/Chess/Piece.cpp"
-    ],
-    "directory": "D:/Desktop/UFMG/SI/2024-2/pds2/MiniGames",
-    "file": "D:/Desktop/UFMG/SI/2024-2/pds2/MiniGames/src/Chess/Piece.cpp",
-    "output": "D:/Desktop/UFMG/SI/2024-2/pds2/MiniGames/build/Chess/Piece.o"
-  }
-]
+ {
+  "directory": "D:\\Desktop\\UFMG\\SI\\2024-2\\pds2\\MiniGames",
+  "arguments": [
+   "g++",
+   "-std=c++17",
+   "-Wall",
+   "-Wextra",
+   "-Iinclude",
+   "-c",
+   "src/main.cpp",
+   "-o",
+   "build/main.o"
+  ],
+  "file": "src/main.cpp"
+ },
+ {
+  "directory": "D:\\Desktop\\UFMG\\SI\\2024-2\\pds2\\MiniGames",
+  "arguments": [
+   "g++",
+   "-std=c++17",
+   "-Wall",
+   "-Wextra",
+   "-Iinclude",
+   "-c",
+   "src/Chess/Game.cpp",
+   "-o",
+   "build/Chess/Game.o"
+  ],
+  "file": "src/Chess/Game.cpp"
+ },
+ {
+  "directory": "D:\\Desktop\\UFMG\\SI\\2024-2\\pds2\\MiniGames",
+  "arguments": [
+   "g++",
+   "-std=c++17",
+   "-Wall",
+   "-Wextra",
+   "-Iinclude",
+   "-c",
+   "src/Chess/Instance.cpp",
+   "-o",
+   "build/Chess/Instance.o"
+  ],
+  "file": "src/Chess/Instance.cpp"
+ },
+ {
+  "directory": "D:\\Desktop\\UFMG\\SI\\2024-2\\pds2\\MiniGames",
+  "arguments": [
+   "g++",
+   "-std=c++17",
+   "-Wall",
+   "-Wextra",
+   "-Iinclude",
+   "-c",
+   "src/Chess/Piece.cpp",
+   "-o",
+   "build/Chess/Piece.o"
+  ],
+  "file": "src/Chess/Piece.cpp"
+ }
+]

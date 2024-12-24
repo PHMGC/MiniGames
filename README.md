@@ -22,3 +22,25 @@ make
 ```bash
 make clean
 ```
+
+## Desenvolvimento
+Para utilização da ferramenta clangd, em conjunto com a extensão clangd no Visual Studio Code para detecção de erros no código em tempo real,
+utilizou-se a ferramenta bear (ou compiledb no Windows), que gera automaticamente
+o compile_commands.json para o clangd identificar o modo como o projeto está sendo compilado na sua máquina.
+No Windows (certifique-se se ter pip instalado):
+```bash
+pip install compiledb
+```
+E execute, no diretório do projeto,
+```bash
+compiledb make
+```
+Nos demais sistemas operacionais, utilize seu gerenciador de pacotes para instalar "bear"
+e execute, no diretório do projeto,
+```bash
+bear -- make
+```
+para gerar o arquivo compile_commands.json
+
+Aviso: Toda vez que for feita uma alteração de estrutura do código, como criação, destruição ou movimento de arquivos e pastas
+no diretório do projeto, essa ferramenta deve ser executada novamente, para que o clang esteja por dentro das alterações
