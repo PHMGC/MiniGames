@@ -1,46 +1,59 @@
 # MiniGames
- Trabalho Final da disciplina de Programação e Desenvolvimento de Software 2 da UFMG.
 
- ## Requerimentos para compilação
-* Compilador de sua preferência para C++ (GCC é recomendado)
+Este repositório contém o trabalho final da disciplina de **Programação e Desenvolvimento de Software 2** (PDS2) da **UFMG**. O projeto consiste na implementação de uma coleção de jogos de tabuleiro, desenvolvidos em **C++** com o auxílio da biblioteca **SFML (Simple and Fast Multimedia Library)**.
 
-* GNU Make para executar o Makefile
-(caso não possua, pode instalar acessando [text](https://www.gnu.org/software/make/#download))
+---
 
-* Caso não esteja no Windows: 
-Use o gerenciador de pacotes do seu sistema operacional para instalar
-SFML-2.6.2 (Simple and Fast Multimedia Library)
-(Ou instale acessando [text](https://www.sfml-dev.org/download/sfml/2.6.2))
+## Requisitos para Compilação
 
-## Compilação
-Na raiz do projeto:
-* Para compilar o projeto, envie o comando:
-```bash
-make
-```
-* Para limpar os arquivos compilados, envie o comando:
-```bash
-make clean
-```
+Antes de compilar o projeto, certifique-se de ter os seguintes itens instalados:
 
-## Desenvolvimento
-Para utilização da ferramenta clangd, em conjunto com a extensão clangd no Visual Studio Code para detecção de erros no código em tempo real,
-utilizou-se a ferramenta bear (ou compiledb no Windows), que gera automaticamente
-o compile_commands.json para o clangd identificar o modo como o projeto está sendo compilado na sua máquina.
-No Windows (certifique-se se ter pip instalado):
-```bash
-pip install compiledb
-```
-E execute, no diretório do projeto,
-```bash
-compiledb make
-```
-Nos demais sistemas operacionais, utilize seu gerenciador de pacotes para instalar "bear"
-e execute, no diretório do projeto,
-```bash
-bear -- make
-```
-para gerar o arquivo compile_commands.json
+1. **Compilador C++**: Recomenda-se o uso do GCC ou outro compatível com C++17 ou superior.
+2. **GNU Make**: Necessário para utilizar o Makefile fornecido.  
+   Caso não possua o GNU Make, pode instalá-lo acessando [GNU Make - Download](https://www.gnu.org/software/make/#download).
+3. **SFML 2.6.2**: Biblioteca gráfica utilizada no projeto.  
+   - **No Windows**: Baixe a versão correspondente ao seu sistema [aqui](https://www.sfml-dev.org/download/sfml/2.6.2).
+   - **Em outros sistemas operacionais**: Utilize o gerenciador de pacotes do sistema para instalar.
 
-Aviso: Toda vez que for feita uma alteração de estrutura do código, como criação, destruição ou movimento de arquivos e pastas
-no diretório do projeto, essa ferramenta deve ser executada novamente, para que o clang esteja por dentro das alterações
+---
+
+## Instruções de Compilação
+
+1. Navegue até o diretório raiz do projeto.
+2. Para compilar o projeto, execute:
+   ```bash
+   make
+   ```
+3. Para limpar os arquivos gerados pela compilação, execute:
+   ```bash
+   make clean
+   ```
+
+---
+
+## Ambiente de Desenvolvimento
+
+Para melhorar a produtividade e detectar erros no código em tempo real, recomenda-se o uso da extensão **clangd** no **Visual Studio Code**. O **clangd** requer um arquivo `compile_commands.json` que pode ser gerado automaticamente utilizando as ferramentas **bear** ou **compiledb**.
+
+### Configurando o Ambiente:
+
+#### No Windows:
+1. Certifique-se de ter o **pip** instalado.
+2. Instale o **compiledb** com o comando:
+   ```bash
+   pip install compiledb
+   ```
+3. No diretório do projeto, gere o arquivo `compile_commands.json` executando:
+   ```bash
+   compiledb make
+   ```
+
+#### Nos Demais Sistemas Operacionais:
+1. Utilize o gerenciador de pacotes do sistema para instalar a ferramenta **bear**.
+2. No diretório do projeto, gere o arquivo `compile_commands.json` executando:
+   ```bash
+   bear -- make
+   ```
+
+### Observação Importante:
+Sempre que houver alterações significativas na estrutura do projeto (como criação, exclusão ou movimentação de arquivos e pastas), é necessário gerar novamente o arquivo `compile_commands.json` para que o **clangd** reconheça as mudanças.
