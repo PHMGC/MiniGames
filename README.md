@@ -11,10 +11,7 @@ Antes de compilar o projeto, certifique-se de ter os seguintes itens instalados:
 1. **Compilador C++**: Recomenda-se o uso do GCC ou outro compatível com C++17 ou superior.
 2. **GNU Make**: Necessário para utilizar o Makefile fornecido.  
    Caso não possua o GNU Make, pode instalá-lo acessando [GNU Make - Download](https://www.gnu.org/software/make/#download).
-3. **SFML 2.6.2**: Biblioteca gráfica utilizada no projeto.  
-   - **No Windows**: Baixe a versão correspondente ao seu sistema [aqui](https://www.sfml-dev.org/download/sfml/2.6.2).
-   - **Em outros sistemas operacionais**: Utilize o gerenciador de pacotes do sistema para instalar.
-
+   
 ---
 
 ## Instruções de Compilação
