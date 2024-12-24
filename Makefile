@@ -7,7 +7,7 @@ INCLUDE_DIR = include
 # Compiler and flags
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -I$(INCLUDE_DIR)
-LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
+LDFLAGS = -L./lib -lsfml-graphics -lsfml-window -lsfml-system
 
 # Target file
 TARGET = $(BIN_DIR)/main
