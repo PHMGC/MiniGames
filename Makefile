@@ -3,20 +3,24 @@ SRC_DIR = src
 BUILD_DIR = build
 BIN_DIR = bin
 INCLUDE_DIR = include
+LIB_DIR = lib
 
 # Compilador e flags
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -I$(INCLUDE_DIR) -DSFML_STATIC
-LDFLAGS = -L./lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s
+LDFLAGS = 
 
+# Detectar Sistema Operacional
 UNAME_S := $(shell uname -s)
 
 ifeq ($(UNAME_S), Linux)
-    LDFLAGS += -lGL -lfreetype -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -lpthread
+    LDFLAGS += -L$(LIB_DIR)/linux -lsfml-graphics-s -lsfml-window-s -lsfml-system-s \
+               -lGL -lfreetype -lFLAC -lvorbisenc -lvorbisfile -lvorbis -logg -lpthread \
+               -lX11 -lXrandr -lXi -lXcursor -lXinerama -ludev
 else ifeq ($(OS),Windows_NT)
-    LDFLAGS += -lfreetype -lopengl32 -lgdi32 -lwinmm -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -lkernel32 -luser32
+    LDFLAGS += -L$(LIB_DIR)/windows -lsfml-graphics-s -lsfml-window-s -lsfml-system-s \
+               -lfreetype -lopengl32 -lgdi32 -lwinmm -lflac -lvorbisenc -lvorbisfile -lvorbis -logg -lkernel32 -luser32
 endif
-
 
 # Arquivo alvo
 TARGET = $(BIN_DIR)/main
