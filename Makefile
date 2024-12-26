@@ -7,7 +7,7 @@ LIB_DIR = lib
 
 # Compilador e flags
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -I$(INCLUDE_DIR) -DSFML_STATIC
+CXXFLAGS = -std=c++17 -Wall -Wextra -I$(INCLUDE_DIR)
 LDFLAGS = 
 
 # Detectar Sistema Operacional

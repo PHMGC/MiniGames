@@ -1,23 +1,29 @@
 #ifndef PIECE_HPP
 #define PIECE_HPP
 
-enum PieceTeam { WHITE, BLACK };
+#include "Tools/Position.hpp"
 
-class Position{
-public:
-  int x;
-  int y;
-  Position(int x, int y);
-};
+enum Team { WHITE, BLACK };
 
 class Piece {
 public:
-    Piece(PieceTeam team, std::vector<int> position);
+    Piece(Team team, const Position& position);
     virtual ~Piece() = default;
 
+    [[nodiscard]] Team getTeam();
+    [[nodiscard]] Position getPosition();
+    void setPosition(const Position& position);
+    friend std::ostream& operator<<(std::ostream& os, Piece& piece);
+
+    // Métodos virtuais puros (devem ser implementados pelos herdeiros)
+    virtual std::string getName() = 0;
+    virtual void move(Position move) = 0;
+    [[nodiscard]] virtual bool canMove(Position move) = 0;
+    [[nodiscard]] virtual bool isDefaultMove(Position move) = 0;
+
 protected:
-    PieceTeam m_team;
-    std::vector<int> m_position;
+    Team m_team;
+    Position m_position;
 };
 
 #endif

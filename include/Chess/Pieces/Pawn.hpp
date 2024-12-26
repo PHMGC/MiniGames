@@ -1,12 +1,23 @@
 #ifndef PAWN_HPP
 #define PAWN_HPP
 
-#include "Piece.hpp"
+#include "Chess/Pieces/Piece.hpp"
 
-class Pawn : public Piece {
+class Pawn final: public Piece {
+    bool isFirstMove = true;
 public:
-    Pawn(PieceTeam team, std:vector position);
-    void draw(sf::RenderWindow& window) override;
+    using Piece::Piece;
+
+
+    void move(Position move) override;
+    [[nodiscard]] bool canMove(Position move) override;
+    [[nodiscard]] bool isDefaultMove(Position move) override;
+    [[nodiscard]] std::string getName() override;
+
+    [[nodiscard]] bool isDoubleMove(Position move);
+    [[nodiscard]] bool isCapture(Position move);
+    [[nodiscard]] bool isEnPassant();
+    [[nodiscard]] bool isPromotion();
 };
 
-#endif
+#endif //PAWN_HPP
