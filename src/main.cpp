@@ -5,6 +5,8 @@
 #include <iostream>
 #include <iomanip> // Para manipular espaçamento
 
+#include <SFML/Graphics.hpp>
+
 int main() {
     Board board{};
 

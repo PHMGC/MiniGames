@@ -11,26 +11,13 @@ include_directories("${CMAKE_SOURCE_DIR}/include")
 file(GLOB_RECURSE SOURCES "${CMAKE_SOURCE_DIR}/src/*.cpp")
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-# SFML libraries
-set(SFML_LIB_DIR "${CMAKE_SOURCE_DIR}/lib")
-link_directories(${SFML_LIB_DIR})
+# Adding SFML project to build
+add_subdirectory(SFML)
 
-# Adiciona -Llib manualmente
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -L${SFML_LIB_DIR}")
-
-# SFML libraries linkage
-target_link_libraries(${PROJECT_NAME}
-        sfml-graphics
-        sfml-window
-        sfml-system
-        sfml-audio
-)
+# SFML library linkage
+target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics sfml-window sfml-system)
 
 # Set binary output
 set_target_properties(${PROJECT_NAME} PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin
 )
-
-## Instrução opcional: adicionar o diretório das bibliotecas ao rpath
-#set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
-#set(CMAKE_INSTALL_RPATH "${SFML_LIB_DIR}")
