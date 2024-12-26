@@ -1,56 +1,195 @@
-# MiniGames
+# MiniGames 🎮
 
-Este repositório contém o trabalho final da disciplina de **Programação e Desenvolvimento de Software 2** (PDS2) da **UFMG**. O projeto consiste na implementação de uma coleção de jogos de tabuleiro, desenvolvidos em **C++** com o auxílio da biblioteca **SFML (Simple and Fast Multimedia Library)**.
+Este repositório contém o trabalho final da disciplina **Programação e Desenvolvimento de Software 2** (PDS2) da **Universidade Federal de Minas Gerais (UFMG)**. O projeto consiste na implementação de uma coleção de jogos de tabuleiro, desenvolvidos em **C++** com o uso da biblioteca **SFML (Simple and Fast Multimedia Library)**.
 
 ---
 
-## Requisitos para Compilação
+## 🕹️ Jogos Implementados
 
-Antes de compilar o projeto, certifique-se de ter os seguintes itens instalados:
+### 1. **Reversi**
+- **Descrição**: Também conhecido como Othello, é um jogo estratégico onde dois jogadores disputam para dominar o tabuleiro com peças de sua cor.
+- **Regras principais**:
+   - As peças podem ser viradas ao capturar as do oponente.
+   - O jogador com mais peças no final vence.
 
-1. **Compilador C++**: Recomenda-se o uso do GCC ou outro compatível com C++17 ou superior.
-2. **GNU Make**: Necessário para utilizar o Makefile fornecido.  
-   Caso não possua o GNU Make, pode instalá-lo acessando [GNU Make - Download](https://www.gnu.org/software/make/#download).
-   
+### 2. **Dots and Boxes**
+- **Descrição**: Os jogadores desenham linhas em um tabuleiro de pontos. Ao fechar um quadrado, o jogador ganha pontos e continua jogando.
+- **Objetivo**: Fechar o maior número de quadrados.
+
+### 3. **Tic-Tac-Toe (Jogo da Velha)**
+- **Descrição**: Um clássico jogo de tabuleiro onde dois jogadores tentam formar uma linha (horizontal, vertical ou diagonal) de três símbolos iguais.
+- **Regras principais**:
+   - O jogo termina em vitória, derrota ou empate.
+
+### 4. **Chess (Xadrez)**
+- **Descrição**: Jogo de estratégia em um tabuleiro 8x8 com peças específicas para cada jogador.
+- **Regras principais**:
+   - Objetivo é dar xeque-mate no rei adversário.
+   - Movimentos e capturas seguem as regras tradicionais do xadrez.
+
+### 5. **Checkers (Damas)**
+- **Descrição**: Jogo onde os jogadores movem suas peças diagonalmente e capturam as do oponente ao pular sobre elas.
+- **Regras principais**:
+   - Peças podem ser promovidas a damas, ganhando movimentos extras.
+
+### 6. **Gomoku**
+- **Descrição**: Um jogo de tabuleiro em que o objetivo é formar uma linha de cinco peças consecutivas em qualquer direção.
+- **Regras principais**:
+   - Sem restrição de movimentos ou capturas como no GO tradicional.
+
+### 7. **{INSIRA NOME DO JOGO DO MARIO}**
+- **Descrição**: TODO
+- **Regras principais**:
+   - TODO
+
 ---
 
-## Instruções de Compilação
+## 🎯 Estrutura do Projeto
 
-1. Navegue até o diretório raiz do projeto.
-2. Para compilar o projeto, execute:
+### **Hierarquia de Classes para os Jogos**
+#### Interface Base
+- **Classe abstrata**: `BoardGames`
+   - **Responsabilidades**:
+      - Definir o comportamento comum a todos os jogos de tabuleiro.
+      - Métodos virtuais:
+         - `move()`: Realiza uma jogada.
+         - `readMove()`: Lê e valida a entrada do jogador.
+         - `checkMove()`: Verifica se o movimento é válido.
+         - `checkWin()`: Determina se o jogo terminou em vitória.
+         - `printBoard()`: Imprime o estado atual do tabuleiro.
+   - **Atributos**:
+      - Tamanho do tabuleiro.
+      - Peças do tabuleiro.
+
+#### Implementações Específicas
+- **`Reversi`**: Implementa as regras e mecânicas do Reversi.
+- **`DotsAndBoxes`**: Gerencia a lógica de criar e fechar quadrados.
+- **`TicTacToe`**: Adapta o jogo da velha para diferentes tamanhos de tabuleiro.
+- **`Chess`**: Implementa as regras do xadrez, incluindo peças e movimentos.
+- **`Checkers`**: Implementa o jogo de damas com promoção de peças.
+- **`Gomoku`**: Gerencia a lógica de alinhamento de cinco peças consecutivas.
+- **`{INSIRA JOGO DO MARIO}`**: (Detalhes em desenvolvimento).
+
+---
+
+### **Cadastro de Jogadores**
+- **Classe**: `Jogador`
+   - **Responsabilidades**:
+      - Gerenciar o nome, apelido único e estatísticas de vitórias/derrotas (winrate).
+      - Listar jogadores ordenados por apelido ou nome.
+   - **Colaborações**:
+      - Sistema de registro e consulta.
+
+---
+
+### **Execução de Partidas**
+- **Classe**: `Partida`
+   - **Responsabilidades**:
+      - Iniciar e finalizar o jogo.
+      - Controlar o tabuleiro e os jogadores.
+      - Registrar o vencedor ou empate.
+   - **Colaborações**:
+      - `BoardGames` (jogo atual).
+      - `Jogador`.
+
+---
+
+## 💡 Funcionalidades Extras
+- **Interface gráfica com SFML**:
+   - Fornece uma experiência visual interativa para os jogos.
+- **Implementação de IA**:
+   - Jogador opcional controlado pelo computador.
+- **Configuração personalizada**:
+   - Permite ao usuário escolher o tamanho do tabuleiro para jogos compatíveis.
+
+---
+
+## 📋 Requisitos para Compilação
+
+Certifique-se de ter os seguintes componentes instalados antes de compilar o projeto:
+
+1. **Compilador C++**: Recomendamos o uso do GCC, Clang ou MSVC com suporte a C++17 ou superior.
+2. **CMake**: Ferramenta para gerenciar o processo de build. Baixe em [CMake - Download](https://cmake.org/download/).
+3. **GNU Make** (Opcional): Usado para facilitar a automação do build. Instale-o via [GNU Make - Download](https://www.gnu.org/software/make/#download) ou pelo gerenciador de pacotes de seu sistema.
+
+---
+
+## 🚀 Como Compilar e Executar
+### Passo 0: Clone o repositório
+Para começar, clone o repositório no local de sua escolha (certifique-se de ter git instalado):
    ```bash
-   make
+   git clone https://github.com/PHMGC/MiniGames.git
    ```
-3. Para limpar os arquivos gerados pela compilação, execute:
+### 1. Configurar o Build
+1. Navegue até o diretório raiz:
    ```bash
-   make clean
+   cd /caminho/para/MiniGames
    ```
+2. Crie um diretório de build:
+   ```bash
+   mkdir build
+   cd build
+   ```
+
+### 2. Gerar o Build com CMake
+```bash
+cmake ..
+```
+
+### 3. Compilar o Projeto
+```bash
+cmake --build .
+```
+
+### 4. Executar o Programa
+O executável será gerado no diretório `bin`. Execute-o com:
+```bash
+../bin/MiniGames.exe
+```
 
 ---
 
-## Ambiente de Desenvolvimento
+## 🛠 Ambiente de Desenvolvimento Recomendado
 
-Para melhorar a produtividade e detectar erros no código em tempo real, recomenda-se o uso da extensão **clangd** no **Visual Studio Code**. O **clangd** requer um arquivo `compile_commands.json` que pode ser gerado automaticamente utilizando as ferramentas **bear** ou **compiledb**.
+Para aumentar a produtividade e facilitar o desenvolvimento, sugerimos o uso do **Visual Studio Code (VS Code)** com a extensão **clangd** para detecção de erros e análise estática.
 
-### Configurando o Ambiente:
+### Configurando o Ambiente com `compile_commands.json`
+Para utilizar o **clangd**, é necessário gerar o arquivo `compile_commands.json`, que contém informações sobre como o código será compilado.
 
 #### No Windows:
-1. Certifique-se de ter o **pip** instalado.
-2. Instale o **compiledb** com o comando:
+1. Instale o **pip** (gerenciador de pacotes do Python).
+2. Instale o **compiledb** com:
    ```bash
    pip install compiledb
    ```
-3. No diretório do projeto, gere o arquivo `compile_commands.json` executando:
+3. No diretório raiz do projeto, gere o arquivo:
    ```bash
    compiledb make
    ```
 
-#### Nos Demais Sistemas Operacionais:
-1. Utilize o gerenciador de pacotes do sistema para instalar a ferramenta **bear**.
-2. No diretório do projeto, gere o arquivo `compile_commands.json` executando:
+#### No Linux/MacOS:
+1. Instale o **bear**:
+   - **Linux**: Use o gerenciador de pacotes do seu sistema. Por exemplo:
+     ```bash
+     sudo apt install bear  # Debian/Ubuntu
+     sudo pacman -S bear    # Arch Linux
+     ```
+   - **MacOS**: Use o Homebrew:
+     ```bash
+     brew install bear
+     ```
+2. Gere o arquivo com:
    ```bash
    bear -- make
    ```
 
-### Observação Importante:
-Sempre que houver alterações significativas na estrutura do projeto (como criação, exclusão ou movimentação de arquivos e pastas), é necessário gerar novamente o arquivo `compile_commands.json` para que o **clangd** reconheça as mudanças.
+### Atualização do `compile_commands.json`
+Sempre que alterar significativamente a estrutura do projeto (adicionar/remover/mover arquivos), gere novamente o `compile_commands.json` para garantir a precisão do **clangd**.
+
+---
+
+## ✨ Autores
+
+- Pedro Henrique Moreira Guimarães Cortez - [@github](https://github.com/PHMGC)
+- Gustavo Luiz Araújo - [@github](https://github.com/Gustav0Luiz)
+- João Neimerck - [{INSERIR GITHUB}](#)
