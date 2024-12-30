@@ -14,7 +14,7 @@ bool Knight::canMove(const Position move) {
     return this->isDefaultMove(positionDiff);
 }
 
-void Knight::move(const Position move) {
+void Knight::move(const Position move, Piece *promotion, Board &board) {
     this->setPosition(move);
 }
 

@@ -14,7 +14,7 @@ bool Bishop::canMove(const Position move) {
     return this->isDefaultMove(positionDiff);
 }
 
-void Bishop::move(const Position move) {
+void Bishop::move(const Position move, Piece *promotion, Board &board) {
       this->setPosition(move);
 }
 

@@ -1,6 +1,8 @@
 #ifndef PIECE_HPP
 #define PIECE_HPP
 
+#include <Chess/Board.hpp>
+
 #include "Tools/Position.hpp"
 
 enum Team { WHITE, BLACK };
@@ -17,7 +19,7 @@ public:
 
     // Métodos virtuais puros (devem ser implementados pelos herdeiros)
     virtual std::string getName() = 0;
-    virtual void move(Position move) = 0;
+    virtual void move(Position move, Piece *promotion, Board &board) = 0;
     [[nodiscard]] virtual bool canMove(Position move) = 0;
     [[nodiscard]] virtual bool isDefaultMove(Position move) = 0;
 

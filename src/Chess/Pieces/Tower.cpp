@@ -20,7 +20,7 @@ bool Tower::canMove(const Position move) {
         || this->isCastle();
 }
 
-void Tower::move(const Position move) {
+void Tower::move(const Position move, Piece *promotion, Board &board) {
     this->isFirstMove = false;
     this->setPosition(move);
 }

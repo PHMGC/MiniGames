@@ -33,24 +33,32 @@ Board::~Board() {
     }
 }
 
-
-// Acessar a peça na posição
-Piece* Board::getPieceAt (const Position &pos) const {
-    if (pos.getX() < 0 || pos.getX() >= 8 || pos.getY() < 0 || pos.getY() >= 8) {
-        throw std::out_of_range("Posicao fora do tabuleiro.");
-    }
-    return this->m_pieces[pos.getY() * 8 + pos.getX()];
+bool Board::isPositionValid(const Position& pos) {
+    return pos.getX() >= 0 && pos.getX() < 8 && pos.getY() >= 0 && pos.getY() < 8;
 }
-
 
 // Verificar se há uma peça na posição
 bool Board::hasPieceAt(const Position& pos) const {
     return this->getPieceAt(pos) != nullptr;
 }
 
-// std::vector<std::unique_ptr<Piece>> Board::getPieces() const {
-//     return this->m_pieces;
-// }
+
+// Acessar a peça na posição
+Piece* Board::getPieceAt (const Position &pos) const {
+    if (!isPositionValid(pos)) {
+        throw std::out_of_range("Posicao fora do tabuleiro.");
+    }
+    return this->m_pieces[pos.getY() * 8 + pos.getX()];
+}
+
+
+void Board::setPieceAt(Piece* piece, const Position pos) {
+    if (!isPositionValid(pos)) {
+        throw std::out_of_range("Posicao fora do tabuleiro.");
+    }
+    this->m_pieces[pos.getY() * 8 + pos.getX()] = piece;
+}
+
 void Board::print() const {
     std::cout << "    a   b   c   d   e   f   g   h" << std::endl;
     for (int y = 7; y >= 0; y--) { // Imprimir o tabuleiro de cima para baixo

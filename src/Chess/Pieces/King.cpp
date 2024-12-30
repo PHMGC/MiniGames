@@ -2,6 +2,8 @@
 
 #include "Chess/Pieces/King.hpp"
 
+#include <Chess/Board.hpp>
+
 bool King::isDefaultMove(Position move) {
     // Movimento padrão do rei
     return std::abs(move.getX()) == std::abs(move.getY())
@@ -24,7 +26,7 @@ bool King::canMove(const Position move) {
            || this->isCastle();
 }
 
-void King::move(const Position move) {
+void King::move(const Position move, Piece *promotion, Board &board) {
     this->isFirstMove = false;
     this->setPosition(move);
 }

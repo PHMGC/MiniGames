@@ -15,7 +15,7 @@ bool Queen::canMove(const Position move) {
     return this->isDefaultMove(positionDiff);
 }
 
-void Queen::move(const Position move) {
+void Queen::move(const Position move, Piece *promotion, Board &board) {
     this->setPosition(move);
 }
 
