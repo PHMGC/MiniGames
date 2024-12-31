@@ -6,6 +6,6 @@
 #include "Chess/Pieces/Knight.hpp"
 #include "Chess/Pieces/Pawn.hpp"
 #include "Chess/Pieces/Queen.hpp"
-#include "Chess/Pieces/Tower.hpp"
+#include "Chess/Pieces/Rook.hpp"
 
 #endif //PIECES_HPP

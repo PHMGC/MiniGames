@@ -1,9 +1,9 @@
-#ifndef TOWER_HPP
-#define TOWER_HPP
+#ifndef ROOK_HPP
+#define ROOK_HPP
 
 #include "Piece.hpp"
 
-class Tower final : public Piece {
+class Rook final : public Piece {
     bool isFirstMove = true;
 public:
     using Piece::Piece;
@@ -17,4 +17,4 @@ public:
 
 };
 
-#endif //TOWER_HPP
+#endif //ROOK_HPP

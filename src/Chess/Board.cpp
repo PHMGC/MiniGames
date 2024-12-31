@@ -1,19 +1,23 @@
 #include <iomanip>
 #include <Chess/Board.hpp>
 
+#define GREEN "\033[32m"
+#define BLUE "\033[34m"
+#define RESET "\033[0m"
+
 void Board:: initializeTeam(const Team team) {
     const int backRow = (team == Team::WHITE) ? 0 : 7;
     const int pawnRow = (team == Team::WHITE) ? 1 : 6;
 
     // Linha de trás
-    this->m_pieces[backRow * 8 + 0] = new Tower(team, Position(0, backRow)); // Torre
+    this->m_pieces[backRow * 8 + 0] = new Rook(team, Position(0, backRow)); // Torre
     this->m_pieces[backRow * 8 + 1] = new Knight(team, Position(1, backRow)); // Cavalo
     this->m_pieces[backRow * 8 + 2] = new Bishop(team, Position(2, backRow)); // Bispo
     this->m_pieces[backRow * 8 + 3] = new Queen(team, Position(3, backRow)); // Rainha
     this->m_pieces[backRow * 8 + 4] = new King(team, Position(4, backRow)); // Rei
     this->m_pieces[backRow * 8 + 5] = new Bishop(team, Position(5, backRow)); // Bispo
     this->m_pieces[backRow * 8 + 6] = new Knight(team, Position(6, backRow)); // Cavalo
-    this->m_pieces[backRow * 8 + 7] = new Tower(team, Position(7, backRow)); // Torre
+    this->m_pieces[backRow * 8 + 7] = new Rook(team, Position(7, backRow)); // Torre
 
     // Linha de peões
     for (int x = 0; x < 8; ++x) {
@@ -35,29 +39,32 @@ Board::~Board() {
 }
 
 void Board::print() const {
-    // Imprime o cabeçalho
-    std::cout << "  ";
+    std::cout << GREEN << "  ";
     for (char col = 'a'; col <= 'h'; ++col) {
-        std::cout << std::setw(6) << col;
+        std::cout << std::setw(4) << col;
     }
-    std::cout << std::endl;
+    std::cout << RESET << std::endl;
 
+    // Imprime o tabuleiro com os números nas laterais
     for (int y = 7; y >= 0; --y) {
-        std::cout << " " << y + 1 << " ";
+        std::cout << BLUE << " " << y + 1 << RESET;
         for (int x = 0; x < 8; ++x) {
             if (const Piece* piece = this->getPieceAt(Position(x, y))) {
-                std::cout << std::setw(4)
-                          << (piece->getTeam() == Team::WHITE ? "W" : "B")
-                          << typeToString(piece->getType()).substr(0, 2);
+                std::cout << std::setw(4) << *piece;
             } else {
-                std::cout << std::setw(6) << "---";
+                std::cout << std::setw(4) << "-";
             }
         }
-        std::cout << std::endl;
+        std::cout << BLUE << "   " << y + 1 << RESET << std::endl;
     }
+
+    // Imprime o cabeçalho inferior
+    std::cout << GREEN << "  ";
+    for (char col = 'a'; col <= 'h'; ++col) {
+        std::cout << std::setw(4) << col;
+    }
+    std::cout << RESET << std::endl;
 }
-
-
 
 
 bool Board::isPositionValid(const Position& pos) {
@@ -86,7 +93,7 @@ void Board::setPieceAt(Piece* piece, const Position pos) {
     this->m_pieces[pos.getY() * 8 + pos.getX()] = piece;
 }
 
-Team Board::getTurn() {
+Team Board::getTurn() const {
     return this->turn;
 }
 

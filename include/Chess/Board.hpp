@@ -23,7 +23,7 @@ class Board {
     [[nodiscard]] Piece* getPieceAt (const Position &pos) const;
     void setPieceAt(Piece *piece, Position pos);
 
-    [[nodiscard]] Team getTurn();
+    [[nodiscard]] Team getTurn() const;
     void changeTurn();
 
 };

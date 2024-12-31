@@ -8,8 +8,8 @@ class Board;
 
 
 enum class Team { WHITE, BLACK };
-enum class Type { BISHOP, KING, KNIGHT, PAWN, QUEEN, TOWER, UNKNOWN };
-std::string typeToString(Type type);
+enum class Type { BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK, UNKNOWN };
+char typeToSymbol(Type type, Team team);
 
 class Piece {
 public:
@@ -21,7 +21,7 @@ public:
     [[nodiscard]] Position getPosition() const;
     void setPosition(const Position& position);
     friend std::ostream& operator<<(std::ostream& os, const Piece& piece);
-    virtual Type getType() const;
+    [[nodiscard]] virtual Type getType() const;
     virtual void move(Position move, Piece *promotion, Board &board);
 
     // Métodos virtuais puros (devem ser implementados pelos herdeiros)

@@ -1,16 +1,22 @@
 #include "Chess/Pieces/Piece.hpp"
 
 
-std::string typeToString(const Type type) {
+char typeToSymbol(const Type type, const Team team) {
+    char symbol;
     switch (type) {
-        case Type::BISHOP: return "Bishop";
-        case Type::KING: return "King";
-        case Type::KNIGHT: return "Knight";
-        case Type::PAWN: return "Pawn";
-        case Type::QUEEN: return "Queen";
-        case Type::TOWER: return "Tower";
-        default: return "Unknown";
+        case Type::PAWN:   symbol = 'P'; break;
+        case Type::ROOK:   symbol = 'R'; break;
+        case Type::KNIGHT: symbol = 'N'; break;
+        case Type::BISHOP: symbol = 'B'; break;
+        case Type::QUEEN:  symbol = 'Q'; break;
+        case Type::KING:   symbol = 'K'; break;
+        default:           symbol = '?'; break;
     }
+    // Letras minúsculas para pretas, maiúsculas para brancas
+    if (team == Team::BLACK) {
+        symbol = std::tolower(symbol);
+    }
+    return symbol;
 }
 
 
@@ -24,9 +30,7 @@ Position Piece::getPosition() const { return this->m_position; }
 void Piece::setPosition(const Position& position) { this->m_position = position; }
 
 std::ostream& operator<<(std::ostream& os, const Piece& piece) {
-    os << "(" << (piece.getTeam() == Team::WHITE ? "White" : "Black")
-       << " " << typeToString(piece.getType())
-       << " at " << piece.getPosition() << ")";
+    os << typeToSymbol(piece.getType(), piece.getTeam());
     return os;
 }
 
