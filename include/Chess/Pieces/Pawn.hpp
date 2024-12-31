@@ -1,24 +1,24 @@
 #ifndef PAWN_HPP
 #define PAWN_HPP
 
-#include "Chess/Pieces/Piece.hpp"
+#include "Piece.hpp"
 
-class Pawn: public Piece {
+class Pawn final : public Piece {
     bool isFirstMove = true;
     bool justDoubleMoved = false;
 public:
     using Piece::Piece;
 
 
-    void move(Position move, Piece *promotion, Board &board) override;
-    bool canMove(Position move, Piece *captured_piece, Piece *last_moved_piece) override;
+    void move(Position move, Piece *promotionPiece, Board &board) override;
+    bool canMove(Position move, Piece *captureCandidate, Piece *lastMovedPiece) override;
     [[nodiscard]] bool isDefaultMove(Position move) override;
-    [[nodiscard]] std::string getName() override;
+    [[nodiscard]] Type getType() const override;
 
-    [[nodiscard]] bool isDoubleMove(Position move);
-    [[nodiscard]] bool isCapture(Piece* captured_piece) const;
-    [[nodiscard]] bool isEnPassant(Position move, Piece *last_moved_piece);
-    [[nodiscard]] bool isPromotion(Position move);
+    [[nodiscard]] bool isDoubleMove(Position move) const;
+    [[nodiscard]] bool isCapture(const Piece* captureCandidate) const;
+    [[nodiscard]] bool isEnPassant(Position move, Piece* lastMovedPiece) const;
+    [[nodiscard]] bool isPromotion(Position move) const;
 };
 
 #endif //PAWN_HPP

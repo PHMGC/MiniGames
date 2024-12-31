@@ -1,19 +1,19 @@
 #ifndef KING_HPP
 #define KING_HPP
 
-#include "Chess/Pieces/Piece.hpp"
+#include "Piece.hpp"
 
 class King final : public Piece {
     bool isFirstMove = true;
 public:
     using Piece::Piece;
 
-    void move(Position move, Piece *promotion, Board &board) override;
+    void move(Position move, Piece *promotionPiece, Board &board) override;
     [[nodiscard]] bool isDefaultMove(Position move) override;
-    [[nodiscard]] bool canMove(Position move) override;
-    [[nodiscard]] std::string getName() override;
+    [[nodiscard]] bool canMove(Position move, Piece* captureCandidate, Piece* lastMovedPiece) override;
+    [[nodiscard]] Type getType() const override;
 
-    bool isCastle() const;
+    [[nodiscard]] bool isCastle() const;
 
 };
 

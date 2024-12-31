@@ -1,8 +1,9 @@
+#include <iomanip>
 #include <Chess/Board.hpp>
 
-void Board:: initializeTeam(Team team) {
-    int backRow = (team == WHITE) ? 0 : 7;
-    int pawnRow = (team == WHITE) ? 1 : 6;
+void Board:: initializeTeam(const Team team) {
+    const int backRow = (team == Team::WHITE) ? 0 : 7;
+    const int pawnRow = (team == Team::WHITE) ? 1 : 6;
 
     // Linha de trás
     this->m_pieces[backRow * 8 + 0] = new Tower(team, Position(0, backRow)); // Torre
@@ -21,8 +22,8 @@ void Board:: initializeTeam(Team team) {
 }
 
 Board::Board() : m_pieces(64, nullptr) {
-    initializeTeam(WHITE);
-    initializeTeam(BLACK);
+    initializeTeam(Team::WHITE);
+    initializeTeam(Team::BLACK);
 }
 Board::~Board() {
     for (auto& piece : this->m_pieces) {
@@ -32,6 +33,32 @@ Board::~Board() {
         }
     }
 }
+
+void Board::print() const {
+    // Imprime o cabeçalho
+    std::cout << "  ";
+    for (char col = 'a'; col <= 'h'; ++col) {
+        std::cout << std::setw(6) << col;
+    }
+    std::cout << std::endl;
+
+    for (int y = 7; y >= 0; --y) {
+        std::cout << " " << y + 1 << " ";
+        for (int x = 0; x < 8; ++x) {
+            if (const Piece* piece = this->getPieceAt(Position(x, y))) {
+                std::cout << std::setw(4)
+                          << (piece->getTeam() == Team::WHITE ? "W" : "B")
+                          << typeToString(piece->getType()).substr(0, 2);
+            } else {
+                std::cout << std::setw(6) << "---";
+            }
+        }
+        std::cout << std::endl;
+    }
+}
+
+
+
 
 bool Board::isPositionValid(const Position& pos) {
     return pos.getX() >= 0 && pos.getX() < 8 && pos.getY() >= 0 && pos.getY() < 8;
@@ -46,7 +73,7 @@ bool Board::hasPieceAt(const Position& pos) const {
 // Acessar a peça na posição
 Piece* Board::getPieceAt (const Position &pos) const {
     if (!isPositionValid(pos)) {
-        throw std::out_of_range("Posicao fora do tabuleiro.");
+        throw std::out_of_range("Posição fora do tabuleiro.");
     }
     return this->m_pieces[pos.getY() * 8 + pos.getX()];
 }
@@ -54,24 +81,15 @@ Piece* Board::getPieceAt (const Position &pos) const {
 
 void Board::setPieceAt(Piece* piece, const Position pos) {
     if (!isPositionValid(pos)) {
-        throw std::out_of_range("Posicao fora do tabuleiro.");
+        throw std::out_of_range("Posição fora do tabuleiro.");
     }
     this->m_pieces[pos.getY() * 8 + pos.getX()] = piece;
 }
 
-void Board::print() const {
-    std::cout << "    a   b   c   d   e   f   g   h" << std::endl;
-    for (int y = 7; y >= 0; y--) { // Imprimir o tabuleiro de cima para baixo
-        std::cout << " " << y + 1 << " "; // Rotular as linhas
-        for (int x = 0; x < 8; x++) {
-            if (Piece* piece = this->getPieceAt(Position(x, y))) {
-                std::cout << (piece->getTeam() == WHITE ? " W" : " B") // Time
-                          << piece->getName().substr(0, 1) // Primeira letra do nome
-                          << " ";
-            } else {
-                std::cout << " -- "; // Espaçamento uniforme para células vazias
-            }
-        }
-        std::cout << std::endl;
-    }
+Team Board::getTurn() {
+    return this->turn;
+}
+
+void Board::changeTurn() {
+    this->turn = this->getTurn() == Team::WHITE ? Team::BLACK : Team::WHITE;
 }

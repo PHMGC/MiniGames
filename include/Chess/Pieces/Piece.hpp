@@ -1,26 +1,31 @@
 #ifndef PIECE_HPP
 #define PIECE_HPP
 
-#include <Chess/Board.hpp>
 
 #include "Tools/Position.hpp"
 
-enum Team { WHITE, BLACK };
+class Board;
+
+
+enum class Team { WHITE, BLACK };
+enum class Type { BISHOP, KING, KNIGHT, PAWN, QUEEN, TOWER, UNKNOWN };
+std::string typeToString(Type type);
 
 class Piece {
 public:
+
     Piece(Team team, const Position& position);
     virtual ~Piece() = default;
 
-    [[nodiscard]] Team getTeam();
-    [[nodiscard]] Position getPosition();
+    [[nodiscard]] Team getTeam() const;
+    [[nodiscard]] Position getPosition() const;
     void setPosition(const Position& position);
-    friend std::ostream& operator<<(std::ostream& os, Piece& piece);
+    friend std::ostream& operator<<(std::ostream& os, const Piece& piece);
+    virtual Type getType() const;
+    virtual void move(Position move, Piece *promotion, Board &board);
 
     // Métodos virtuais puros (devem ser implementados pelos herdeiros)
-    virtual std::string getName() = 0;
-    virtual void move(Position move, Piece *promotion, Board &board) = 0;
-    [[nodiscard]] virtual bool canMove(Position move) = 0;
+    [[nodiscard]] virtual bool canMove(Position move, Piece* captureCandidate, Piece* lastMovedPiece) = 0;
     [[nodiscard]] virtual bool isDefaultMove(Position move) = 0;
 
 protected:
