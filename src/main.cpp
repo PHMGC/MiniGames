@@ -1,16 +1,14 @@
 //SFML docs: https://www.sfml-dev.org/tutorials/3.0/
 //           https://www.sfml-dev.org/documentation/3.0.0/topics.html
 
-#include "Chess/Board.hpp"
-#include <iostream>
-#include <iomanip> // Para manipular espaçamento
+#include "Chess/Chess.hpp"
 
 #include <SFML/Graphics.hpp>
 
 int main() {
-    Board board{};
+    const Chess chess;
 
-    board.print();
+    chess.printBoard();
 
     return 0;
 }

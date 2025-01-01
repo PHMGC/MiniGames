@@ -7,14 +7,11 @@
 
 class Board {
     std::vector<Piece*> m_pieces;
-    Team turn = Team::WHITE;
     void initializeTeam(Team team);
 
     public:
     Board();
     ~Board();
-
-    void print() const;
 
     static bool isPositionValid(const Position& pos);
     // Verificar se há uma peça na posição
@@ -23,8 +20,8 @@ class Board {
     [[nodiscard]] Piece* getPieceAt (const Position &pos) const;
     void setPieceAt(Piece *piece, Position pos);
 
-    [[nodiscard]] Team getTurn() const;
-    void changeTurn();
+    void print() const;
+
 
 };
 

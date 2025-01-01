@@ -1,9 +1,8 @@
 #include <iomanip>
-#include <Chess/Board.hpp>
 
-#define GREEN "\033[32m"
-#define BLUE "\033[34m"
-#define RESET "\033[0m"
+#include <Chess/Board.hpp>
+#include <Tools/Terminal.hpp>
+
 
 void Board:: initializeTeam(const Team team) {
     const int backRow = (team == Team::WHITE) ? 0 : 7;
@@ -38,35 +37,6 @@ Board::~Board() {
     }
 }
 
-void Board::print() const {
-    std::cout << GREEN << "  ";
-    for (char col = 'a'; col <= 'h'; ++col) {
-        std::cout << std::setw(4) << col;
-    }
-    std::cout << RESET << std::endl;
-
-    // Imprime o tabuleiro com os números nas laterais
-    for (int y = 7; y >= 0; --y) {
-        std::cout << BLUE << " " << y + 1 << RESET;
-        for (int x = 0; x < 8; ++x) {
-            if (const Piece* piece = this->getPieceAt(Position(x, y))) {
-                std::cout << std::setw(4) << *piece;
-            } else {
-                std::cout << std::setw(4) << "-";
-            }
-        }
-        std::cout << BLUE << "   " << y + 1 << RESET << std::endl;
-    }
-
-    // Imprime o cabeçalho inferior
-    std::cout << GREEN << "  ";
-    for (char col = 'a'; col <= 'h'; ++col) {
-        std::cout << std::setw(4) << col;
-    }
-    std::cout << RESET << std::endl;
-}
-
-
 bool Board::isPositionValid(const Position& pos) {
     return pos.getX() >= 0 && pos.getX() < 8 && pos.getY() >= 0 && pos.getY() < 8;
 }
@@ -93,10 +63,30 @@ void Board::setPieceAt(Piece* piece, const Position pos) {
     this->m_pieces[pos.getY() * 8 + pos.getX()] = piece;
 }
 
-Team Board::getTurn() const {
-    return this->turn;
-}
+void Board::print() const {
+    // Superior horizontal header
+    std::cout << Terminal::GREEN << "  ";
+    for (char col = 'a'; col <= 'h'; ++col) {
+        std::cout << std::setw(4) << col;
+    }
+    std::cout << Terminal::DEFAULT << std::endl;
 
-void Board::changeTurn() {
-    this->turn = this->getTurn() == Team::WHITE ? Team::BLACK : Team::WHITE;
+    for (int y = 7; y >= 0; --y) {
+        std::cout << Terminal::BLUE << " " << y + 1 << Terminal::DEFAULT;
+        for (int x = 0; x < 8; ++x) {
+            if (const Piece* piece = this->getPieceAt(Position(x, y))) {
+                std::cout << std::setw(4) << *piece;
+            } else {
+                std::cout << std::setw(4) << "-";
+            }
+        }
+        std::cout << Terminal::BLUE << "   " << y + 1 << Terminal::DEFAULT << std::endl;
+    }
+
+    // Inferior horizontal header
+    std::cout << Terminal::GREEN << "  ";
+    for (char col = 'a'; col <= 'h'; ++col) {
+        std::cout << std::setw(4) << col;
+    }
+    std::cout << Terminal::DEFAULT << std::endl;
 }
